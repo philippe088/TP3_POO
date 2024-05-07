@@ -55,10 +55,6 @@ namespace TP3.Classe
 
 		public abstract void Stop();
        
-        public void Stop()
-        {
-
-        }
 		public override string ToString()
 		{
 			string result = $"{Title}{Year}";

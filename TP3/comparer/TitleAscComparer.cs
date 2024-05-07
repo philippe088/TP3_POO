@@ -12,15 +12,7 @@ namespace TP3.comparer
     {
         public int Compare(Media lhs, Media rhs)
         {
-            if (lhs < rhs)
-            {
-                return -1;
-            }
-            if (lhs > rhs)
-            {
-                return 1;
-            }
-            return 0;
+            return lhs.Title.CompareTo(rhs.Title);
         }
     }
 }
