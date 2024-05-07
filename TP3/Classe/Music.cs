@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TP3.Classe
 {
-    internal class Music:Media
+    public class Music:Media
     {
 
     }
