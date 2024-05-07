@@ -8,14 +8,19 @@ using TP3.Classe;
 
 namespace TP3.comparer
 {
-    internal class NoSortComparer : IMediaComparer
+    public class NoSortComparer : IMediaComparer
     {
         public int Compare(Media lhs,Media rhs) 
         {
-            if ()
+            if (lhs < rhs)
             { 
-            
+                return -1;
             }
+            if (lhs > rhs)
+            { 
+                return 1; 
+            }
+            return 0;
         }
 
     }

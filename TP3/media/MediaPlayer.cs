@@ -1,4 +1,4 @@
-﻿using PROF.comparer;
+﻿using TP3.comparer;
 using System;
 using System.Collections.Generic;
 using System.IO;

@@ -50,14 +50,8 @@ namespace TP3.Classe
 			this.Year = year;
 		}
 
-		public void Play()
-		{
-
-		}
-        public void Stop()
-        {
-
-        }
+		public abstract void Play();
+		public abstract void Stop();
 		public override string ToString()
 		{
 			string result = $"{Title}{Year}";

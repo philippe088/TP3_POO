@@ -8,7 +8,19 @@ using TP3.Classe;
 
 namespace TP3.comparer
 {
-    internal class TitleDescComparer : IMediaComparer
+    public class TitleDescComparer : IMediaComparer
     {
+        public int Compare(Media lhs, Media rhs)
+        {
+            if (lhs < rhs)
+            {
+                return 1;
+            }
+            if (lhs > rhs)
+            {
+                return -1;
+            }
+            return 0;
+        }
     }
 }
