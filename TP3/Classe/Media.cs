@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TP3.interfaces;
+using WMPLib;
 
 namespace TP3.Classe
 {
@@ -16,6 +17,7 @@ namespace TP3.Classe
 			get { return player; }
 			set { player = value; }
 		}
+
 
 
 	}
