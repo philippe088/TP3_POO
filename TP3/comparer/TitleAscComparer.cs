@@ -10,9 +10,9 @@ namespace TP3.comparer
 {
     public class TitleAscComparer : IMediaComparer
     {
-        public int Compare(Media lhs, Media rhs)
-        {
-            return lhs.Title.CompareTo(rhs.Title);
-        }
+            public int Compare(Media lhs, Media rhs)
+            {
+              return lhs.Title.CompareTo(rhs.Title);
+            }
     }
 }
