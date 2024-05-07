@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TP3.interfaces
 {
-    interface IPlayable
+    public interface IPlayable
     {
         void Play();
         void Stop();
