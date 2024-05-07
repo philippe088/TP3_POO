@@ -48,10 +48,17 @@ namespace TP3.Classe
 		{
 			this.Title = title;
 			this.Year = year;
+			
 		}
 
 		public abstract void Play();
+
 		public abstract void Stop();
+       
+        public void Stop()
+        {
+
+        }
 		public override string ToString()
 		{
 			string result = $"{Title}{Year}";
