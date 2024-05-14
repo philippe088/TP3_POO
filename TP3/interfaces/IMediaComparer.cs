@@ -7,7 +7,7 @@ using TP3.Classe;
 
 namespace TP3.interfaces
 {
-    interface IMediaComparer
+    public interface IMediaComparer
     {
         int Compare(Media lhs,Media rhs);
     }

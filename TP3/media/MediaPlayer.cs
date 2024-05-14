@@ -5,11 +5,56 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TP3.media;
+using TP3.Classe;
+using TP3.interfaces;
 
 namespace PROF.media
 {
     public class MediaPlayer
     {
+        private int currentMediaId;
+        private Playlist currentPlaylist;
+        private List<Media> medias;
+
+        public List<Media> Medias
+        {
+            get { return medias; }
+            set { 
+                if(value == null)
+                    throw new ArgumentNullException("Ne doit pas recevoir un media null");   
+                medias = value; }
+        }
+
+
+
+        public Playlist CurrentPlaylist
+        {
+            get { return currentPlaylist; }
+            set { 
+                if(value == null)
+                    throw new ArgumentNullException("Ne doit pas recevoir de playlist null");
+                currentPlaylist = value; }
+        }
+
+
+        public int CurrentMediaId
+        {
+            get { return currentMediaId; }
+            set 
+            {
+                if (value > Medias.Count ) 
+                {
+                    value = 0;
+                }
+                if (value < 0)
+                {
+                    value = Medias.Count;
+                }
+                currentMediaId = value;
+            }
+        }
+
 
         // prof
         // Ces méthodes vous sont fournies pour lire le contenu des fichiers songs.music et videos.video
@@ -42,13 +87,40 @@ namespace PROF.media
             return listOfLines;
         }
 
+        public Playlist GetPlaylist() 
+        {
+            return this.CurrentPlaylist;
+         
+        }
+        public List<Media> GetUnusedMedias()
+        {
+            List<Media> unusedMedias = new List<Media>();
 
-        // prof
-        // Si vous avez respecté le diagramme de classes, vous n'avez qu'à décommenter la méthode suivante
-        // pour lire tous les fichiers et remplir la liste de médias disponibles.
+            foreach (Media media in Medias)
+            {
+                bool isUsed = false;
+
+                foreach (Media playlistMedia in CurrentPlaylist.Medias)
+                {
+                    if (media.Equals(playlistMedia))
+                    {
+                        isUsed = true;
+                        break;
+                    }
+
+                    if (!isUsed)
+                    {
+                        unusedMedias.Add(media);
+                    }
+                }
+
+                
+            }
+            return unusedMedias;
+        }
         public void LoadMedias(String medialistName)
         {
-            /*
+            
             medias = new List<Media>();
             currentMediaId = -1;
             String extension = GetFileExtension(medialistName);
@@ -75,8 +147,36 @@ namespace PROF.media
             }
 
             currentMediaId = 0;
-            */
+            
         }
+
+        public MediaPlayer()
+        {
+            this.CurrentMediaId = 0;
+            this.CurrentPlaylist= new Playlist();
+            this.Medias = new List<Media>();
+        }
+        public void PlayNext() 
+        {
+                this.Medias[CurrentMediaId].Stop();
+                this.CurrentMediaId++;
+                this.Medias[CurrentMediaId].Play();
+        }
+        public void PlayPrevious() 
+        {
+            this.Medias[CurrentMediaId].Stop();
+            this.CurrentMediaId --;
+            this.Medias[CurrentMediaId].Play();
+        }
+        public void SortPlaylist(IMediaComparer comparer) 
+        {
+            this.CurrentPlaylist.Sort(comparer);
+        }
+        public void Stop()
+        {
+            this.medias[CurrentMediaId].Stop();
+        }
+        
     }
 }
 
