@@ -112,9 +112,7 @@ namespace PROF.media
                     {
                         unusedMedias.Add(media);
                     }
-                }
-
-                
+                }                
             }
             return unusedMedias;
         }
