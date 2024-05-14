@@ -14,13 +14,13 @@ namespace TP3.Classe
 		public WindowsMediaPlayer Player
 		{
 			get { return player; }
-			set { player = value; }
+			protected set { player = value; }
 		}
 		private string title;
 		public string Title
 		{
             get { return title; }
-            set 
+            protected set 
 			{
 				value.Trim();
 				if (string.IsNullOrWhiteSpace(value))
@@ -34,7 +34,7 @@ namespace TP3.Classe
 		public int Year
 		{
             get { return year; }
-            set
+            protected set
 			{
                 if (value < 0)
 				{
