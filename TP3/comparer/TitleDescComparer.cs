@@ -10,12 +10,10 @@ namespace TP3.comparer
 {
     public class TitleDescComparer : IMediaComparer
     {
-            public int Compare(Media lhs, Media rhs)
-            {
-            // Ordre décroissant
+        public int Compare(Media lhs, Media rhs)
+        {
             return rhs.Title.CompareTo(lhs.Title);
-            }
         }
-
     }
+
 }

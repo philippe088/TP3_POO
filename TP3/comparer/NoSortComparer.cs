@@ -11,18 +11,19 @@ namespace TP3.comparer
 {
     public class NoSortComparer : IMediaComparer
     {
-        public int Compare(Media lhs,Media rhs) 
+        public int Compare(Media lhs, Media rhs)
         {
-            if (lhs < rhs)
-            { 
-                return -1;
-            }
-            if (lhs > rhs)
-            { 
-                return 1; 
-            }
-            return 0;
-        }
+            int titleComparison = string.Compare(lhs.Title, rhs.Title, StringComparison.OrdinalIgnoreCase);
 
+         
+            if (titleComparison != 0)
+            {
+                return titleComparison;
+            }
+
+            
+            return lhs.Year.CompareTo(rhs.Year);
+
+        }
     }
 }
