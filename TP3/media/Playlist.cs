@@ -13,7 +13,7 @@ using TP3.comparer;
 namespace TP3.media
 {
     public class Playlist
-        {
+    {
         private int currentMediaId;
         public int CurrentMediaId
         {
@@ -44,15 +44,15 @@ namespace TP3.media
                 mediaComparer = value;
             }
         }
-        private List <Media> medias;
-        public List <Media> Medias
+        private List<Media> medias;
+        public List<Media> Medias
         {
             get { return medias; }
             set
             {
-                if(value is null)
+                if (value is null)
                 {
-                    throw new ArgumentNullException ("value must not be null");
+                    throw new ArgumentNullException("value must not be null");
                 }
                 medias = value;
             }
@@ -66,13 +66,13 @@ namespace TP3.media
         }
         public void AddMedia(Media media)
         {
-            if(media is null)
+            if (media is null)
             {
                 throw new ArgumentNullException("the media object must not be null");
             }
             this.Medias.Add(media);
         }
-        public List <Media> FilterUnusedMedias(List <Media> allMedias)
+        public List<Media> FilterUnusedMedias(List<Media> allMedias)
         {
             if (allMedias is null)
             {
@@ -82,7 +82,7 @@ namespace TP3.media
             {
                 throw new InvalidOperationException("the list must not be empty");
             }
-            
+
             List<Media> unusedMedias = new List<Media>();
 
             foreach (Media media in allMedias)
@@ -111,7 +111,7 @@ namespace TP3.media
         }
         public void RemoveMedia(int mediaId)
         {
-          if (mediaId <=0 || mediaId > this.Medias.Count)
+            if (mediaId <= 0 || mediaId > this.Medias.Count)
             {
                 throw new InvalidOperationException("the attribute must be above 0 and be below or equal to the amount of elements in the list");
             }
@@ -130,9 +130,21 @@ namespace TP3.media
         {
             return this.Medias.Count;
         }
-
-
-
-
+        //a voir
+        public void Sort(IMediaComparer comparer)
+        {
+            this.MediaComparer = comparer;
+            this.Medias.Sort((IComparer<Media>)this.MediaComparer);
+        }
+        public void Stop()
+        {
+            this.Medias[this.CurrentMediaId].Stop();
+        }
+       
+        //a voir
+        public override string ToString()
+        {
+            return $"Playlist: {this.Medias.Count} medias";
+        }   
     }
 }
