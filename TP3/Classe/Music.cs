@@ -17,12 +17,15 @@ namespace TP3.Classe
         }
         public override void Play()
         {
+        
+            Player.controls.stop();
             Player.URL = this.Title;
             Player.controls.play();
+       
         }
         public override void Stop() 
-        { 
-          Player.URL= this.Title;
+        {
+            Player.URL= this.Title;
             Player.controls.stop();
         }
 

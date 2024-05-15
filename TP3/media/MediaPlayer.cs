@@ -9,6 +9,7 @@ using TP3.media;
 using TP3.Classe;
 using TP3.interfaces;
 
+
 namespace PROF.media
 {
     public class MediaPlayer
@@ -20,21 +21,20 @@ namespace PROF.media
         public List<Media> Medias
         {
             get { return medias; }
-            set { 
+            private  set { 
                 if(value == null)
                     throw new ArgumentNullException("Ne doit pas recevoir un media null");   
                 medias = value; }
         }
-
-
-
         public Playlist CurrentPlaylist
         {
             get { return currentPlaylist; }
-            set { 
+            set 
+            { 
                 if(value == null)
                     throw new ArgumentNullException("Ne doit pas recevoir de playlist null");
-                currentPlaylist = value; }
+                currentPlaylist = value; 
+            }
         }
 
 
@@ -43,13 +43,13 @@ namespace PROF.media
             get { return currentMediaId; }
             set 
             {
-                if (value > Medias.Count ) 
-                {
-                    value = 0;
-                }
                 if (value < 0)
                 {
-                    value = Medias.Count;
+                    throw new ArgumentOutOfRangeException("the value must be positive");
+                }
+                if (value > this.Medias.Count)
+                {
+                    throw new ArgumentOutOfRangeException("the value must not exceed the list count");
                 }
                 currentMediaId = value;
             }
@@ -150,15 +150,17 @@ namespace PROF.media
 
         public MediaPlayer()
         {
-            this.CurrentMediaId = 0;
-            this.CurrentPlaylist= new Playlist();
             this.Medias = new List<Media>();
+            this.CurrentPlaylist = new Playlist();
+            this.CurrentMediaId = 0;
+            
+            
         }
         public void PlayNext() 
         {
-                this.Medias[CurrentMediaId].Stop();
-                this.CurrentMediaId++;
-                this.Medias[CurrentMediaId].Play();
+            this.Medias[CurrentMediaId].Stop();
+            this.CurrentMediaId++;
+            this.Medias[CurrentMediaId].Play();
         }
         public void PlayPrevious() 
         {
@@ -173,6 +175,15 @@ namespace PROF.media
         public void Stop()
         {
             this.medias[CurrentMediaId].Stop();
+        }
+        public override string ToString()
+        {
+           string result = "";
+            foreach (Media media in this.Medias)
+            {
+                result += media.ToString() + "\n";
+            }
+            return result;
         }
         
     }

@@ -12,11 +12,11 @@ namespace TP3.comparer
     {
         public int Compare(Media lhs, Media rhs)
         {
-            if (lhs.Year < rhs.Year)
+            if (lhs.Year > rhs.Year)
             {
                 return 1;
             }
-            if (lhs.Year > rhs.Year)
+            if (lhs.Year < rhs.Year)
             {
                 return -1;
             }

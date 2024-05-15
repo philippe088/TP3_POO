@@ -48,7 +48,7 @@ namespace TP3.Classe
 		{
 			this.Title = title;
 			this.Year = year;
-			
+			this.Player = new WindowsMediaPlayer();
 		}
 
 		public abstract void Play();
@@ -57,8 +57,7 @@ namespace TP3.Classe
        
 		public override string ToString()
 		{
-			string result = $"{Title}{Year}";
-			return result;
+			return $"{Title} {Year}";
 		}
 		public override bool Equals(object? obj)
 		{
