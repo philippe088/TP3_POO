@@ -81,10 +81,7 @@ namespace PROF
                                     break;
                                 case 1:
                                     Console.WriteLine("Playlist :");
-                                   // foreach (Media media in mediaPlayer)
-                                    //{
-                                      //  Console.WriteLine(media);
-                                    //}
+                                    Playlist playlist = new Playlist();
                                     break;
                                 case 2:
                                     Console.WriteLine("Add media to playlist...");
@@ -96,7 +93,7 @@ namespace PROF
                                     break;
                                 case 4:
                                     Console.WriteLine("Sort playlist by title (ascending)...");
-
+                                    
                                     break;
                                 case 5:
                                     Console.WriteLine("Sort playlist by title (descending)...");
@@ -111,11 +108,12 @@ namespace PROF
 
                                     break;
                                 case 8:
-                                    Console.WriteLine($" is playing...");
+                                    
                                     int mediaOption;
                                     bool backToPlaylist = false;
                                     while (!backToPlaylist)
                                     {
+                                        Console.WriteLine($" is playing...");
                                         Console.WriteLine("Your options are:\r\n");
                                         Console.WriteLine(" 0 Quit to playlist menu");
                                         Console.WriteLine(" 1 Play");

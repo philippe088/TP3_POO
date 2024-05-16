@@ -156,32 +156,31 @@ namespace PROF.media
             
             
         }
-        public void PlayNext() 
+        public void PlayNext()
         {
             this.Medias[CurrentMediaId].Stop();
-            if (this.CurrentMediaId == this.Medias.Count)
+            if (this.CurrentMediaId == this.Medias.Count - 1)
             {
                 this.CurrentMediaId = 0;
             }
-            else 
-            { 
-               this.CurrentMediaId++;
+            else
+            {
+                this.CurrentMediaId++;
             }
-            
             this.Medias[CurrentMediaId].Play();
         }
-        public void PlayPrevious() 
+
+        public void PlayPrevious()
         {
             this.Medias[CurrentMediaId].Stop();
-            if (this.CurrentMediaId == 0) 
-            { 
-                this.CurrentMediaId = this.Medias.Count; 
-            }
-            else 
+            if (this.CurrentMediaId == 0)
             {
-                this.CurrentMediaId --;
+                this.CurrentMediaId = this.Medias.Count - 1;
             }
-            
+            else
+            {
+                this.CurrentMediaId--;
+            }
             this.Medias[CurrentMediaId].Play();
         }
         public void SortPlaylist(IMediaComparer comparer) 
