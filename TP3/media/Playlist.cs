@@ -151,11 +151,15 @@ namespace TP3.media
         //a voir
         public override string ToString()
         {
-          string result = "";
+            int count = 1;
+            string result = "";
             foreach(Media media in this.Medias)
             {
-                result += $"{media}";
+                string mediaDescription = string.Format("{0,-4}{1,-21}{2,-6}", count, media.Title, media.Year);
+                result += $"{media}\n";
+                count++;
             }
+            
             return result;
        
         }   

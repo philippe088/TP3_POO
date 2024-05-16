@@ -20,10 +20,12 @@ namespace PROF
         public static void Main(string[] args)
         {
             MediaPlayer mediaPlayer = new MediaPlayer();
+            Playlist playlist = new Playlist();
             bool quit = false;
 
             while (!quit)
             {
+                Console.Clear();
                 Console.WriteLine("Your options are:\r\n");
                 Console.WriteLine(" 0 Quit");
                 Console.WriteLine(" 1 Load all musics ");
@@ -34,6 +36,7 @@ namespace PROF
                 if (!int.TryParse(Console.ReadLine(), out choix))
                 {
                     Console.WriteLine("Choose a valid number");
+                    Console.ReadKey();
                     continue;
                 }
 
@@ -44,17 +47,22 @@ namespace PROF
                         break;
                     case 1:
                         Console.WriteLine("Loading all your musics...");
+                        Console.WriteLine("Press any key to continue...");
                         mediaPlayer.LoadMedias(SONGS_PLAYLIST_FILENAME);
+                        Console.ReadKey();
                         break;
                     case 2:
                         Console.WriteLine("Loading all your video...");
+                        Console.WriteLine("Press any key to continue...");
                         mediaPlayer.LoadMedias(VIDEOS_PLAYLIST_FILENAME);
+                        Console.ReadKey();
                         break;
                     case 3:
                         Console.WriteLine("");
                         bool backToMain = false;
                         while (!backToMain)
                         {
+                            Console.Clear();
                             Console.WriteLine("Your options are:\r\n");
                             Console.WriteLine(" 0 Quit to main menu");
                             Console.WriteLine(" 1 Print playlist");
@@ -70,6 +78,7 @@ namespace PROF
                             if (!int.TryParse(Console.ReadLine(), out playlistOption))
                             {
                                 Console.WriteLine("Please insert a valid number.");
+                                Console.ReadKey();
                                 continue;
                             }
 
@@ -78,14 +87,78 @@ namespace PROF
                                 case 0:
                                     backToMain = true;
                                     Console.WriteLine("return to main menu...");
+                                    Console.ReadKey();
                                     break;
                                 case 1:
                                     Console.WriteLine("Playlist :");
-                                    Playlist playlist = new Playlist();
+                                    PrintDescription();
+                                    playlist.ToString();
+                                    foreach (Media media in playlist.Medias)
+                                    {
+                                        int count = 1;
+                                        string mediaDescription = string.Format("{0,-4}{1,-21}{2,-6}", count, media.Title, media.Year);
+                                        count++;
+                                        Console.WriteLine(mediaDescription);
+                                    }
+                                    Console.ReadKey();
                                     break;
                                 case 2:
                                     Console.WriteLine("Add media to playlist...");
+                                    bool mediaToAdd = false;
+                                  
+                                    while (!mediaToAdd)
+                                    {
+                                        Console.Clear();
+                                        PrintDescription();
+                                        int count = 1;
+                                        foreach (Media media in mediaPlayer.GetUnusedMedias())
+                                        {
+                                           
+                                            string mediaDescription = string.Format("{0,-4}{1,-21}{2,-6}", count, media.Title, media.Year);
+                                            count++;
+                                            Console.WriteLine(mediaDescription);
+                                        }
+                                        Console.WriteLine("Press 0 to quit");
+                                        Console.WriteLine("Press a number to start choosing");
+                                        int choixAjouterMedia; 
+                                        if (!int.TryParse(Console.ReadLine(), out choixAjouterMedia))
+                                        {
+                                            Console.WriteLine("Please insert a valid number.");
+                                            Console.ReadKey();
+                                            continue;
+                                        }
+                                        switch (choixAjouterMedia)
+                                        {
+                                            case 0:
+                                                Console.WriteLine("Return to Playlist menu..");
+                                                Console.ReadKey();
+                                                mediaToAdd = true;
+                                                break;
+                                            default:
+                                                Console.WriteLine("Choose a media to add to the playlist.");
+                                                int mediaId;
+                                                if (!int.TryParse(Console.ReadLine(), out mediaId))
+                                                {
+                                                    Console.WriteLine("Please insert a valid number.");
+                                                    Console.ReadKey();
+                                                    continue;
+                                                }
+                                                try
+                                                {                                              
+                                                    playlist.AddMedia(mediaPlayer.GetUnusedMedias()[mediaId - 1]);
+                                                }
+                                                catch (ArgumentOutOfRangeException)
+                                                {
+                                                    Console.WriteLine("Please insert a valid number.");
+                                                    Console.ReadKey();
+                                                    continue;
+                                                }
+                                               
+                                                break;
+                                        }   
 
+
+                                    }
                                     break;
                                 case 3:
                                     Console.WriteLine("Remove media from playlist...");
@@ -93,27 +166,29 @@ namespace PROF
                                     break;
                                 case 4:
                                     Console.WriteLine("Sort playlist by title (ascending)...");
-                                    
+                                    playlist.Sort(new TitleAscComparer());
                                     break;
                                 case 5:
                                     Console.WriteLine("Sort playlist by title (descending)...");
-
+                                    playlist.Sort(new TitleDescComparer());
                                     break;
                                 case 6:
                                     Console.WriteLine("Sort playlist by year (ascending)...");
-
+                                    playlist.Sort(new YearAscComparer());
                                     break;
                                 case 7:
                                     Console.WriteLine("Sort playlist by year (descending)...");
-
+                                    playlist.Sort(new YearDescComparer());
                                     break;
                                 case 8:
-                                    
+
                                     int mediaOption;
                                     bool backToPlaylist = false;
                                     while (!backToPlaylist)
                                     {
-                                        Console.WriteLine($" is playing...");
+                                        Console.Clear();
+                                        mediaPlayer.Medias[mediaPlayer.CurrentMediaId].Play();
+                                        NowPlaying($"{mediaPlayer.Medias[mediaPlayer.CurrentMediaId].Title}");
                                         Console.WriteLine("Your options are:\r\n");
                                         Console.WriteLine(" 0 Quit to playlist menu");
                                         Console.WriteLine(" 1 Play");
@@ -124,6 +199,7 @@ namespace PROF
                                         if (!int.TryParse(Console.ReadLine(), out mediaOption))
                                         {
                                             Console.WriteLine("Please insert a valid number.");
+                                            Console.ReadKey();
                                             continue;
                                         }
                                         switch (mediaOption)
@@ -142,11 +218,13 @@ namespace PROF
                                                 mediaPlayer.PlayPrevious();
                                                 break;
                                             case 0:
+                                                mediaPlayer.Medias[mediaPlayer.CurrentMediaId].Stop();
                                                 backToPlaylist = true;
                                                 Console.WriteLine("return to playlist...");
                                                 break;
                                             default:
                                                 Console.WriteLine("Invalid option. Please choose a valid one.");
+                                                Console.ReadKey();
                                                 break;
                                         }
                                     }
@@ -156,10 +234,24 @@ namespace PROF
                         break;
                     default:
                         Console.WriteLine("Invalid option, please choose something valid...");
+                        Console.ReadKey();
                         break;
                 }
             }
 
+        }
+        public static void NowPlaying(string songName)
+        {
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
+            Console.WriteLine($"{songName}");
+            Console.ForegroundColor = ConsoleColor.Gray;
+        }
+        public static void PrintDescription()
+        {
+            string description = string.Format("{0,-3}{1,-20}{2,-5}", "###", " Titles", "  Years");
+            string separator = string.Format("{0,-4}{1,21}{2,6}", "===", "====================", "=====");
+            Console.WriteLine(description);
+            Console.WriteLine(separator);
         }
 
     }

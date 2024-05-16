@@ -107,13 +107,14 @@ namespace PROF.media
                         isUsed = true;
                         break;
                     }
+                }
 
-                    if (!isUsed)
-                    {
-                        unusedMedias.Add(media);
-                    }
-                }                
+                if (!isUsed)
+                {
+                    unusedMedias.Add(media);
+                }
             }
+
             return unusedMedias;
         }
         public void LoadMedias(String medialistName)
