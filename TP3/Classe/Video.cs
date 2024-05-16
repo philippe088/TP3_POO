@@ -17,12 +17,14 @@ namespace TP3.Classe
         }
         public override void Play()
         {
-            Player.URL = "C:\\Users\\steph\\Desktop\\Cours informatique Phil\\Session 2\\Programmation objet\\TP3_POO\\TP3_H24\\ETU\\TP3\\bin\\Debug\\net8.0" + this.Title;
+            WindowsMediaPlayer Player = new WindowsMediaPlayer();
+            Player.URL = this.Title;
             Player.controls.play();
         }
         public override void Stop()
         {
-            Player.URL = "C:\\Users\\steph\\Desktop\\Cours informatique Phil\\Session 2\\Programmation objet\\TP3_POO\\TP3_H24\\ETU\\TP3\\bin\\Debug\\net8.0" + this.Title;
+            WindowsMediaPlayer Player = new WindowsMediaPlayer();
+            Player.URL = this.Title;
             Player.controls.stop();
         }
     }

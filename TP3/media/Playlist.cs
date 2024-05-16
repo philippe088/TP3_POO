@@ -60,9 +60,10 @@ namespace TP3.media
 
         public Playlist()
         {
+            this.Medias = new List<Media>();
             this.CurrentMediaId = 0;
             this.MediaComparer = new NoSortComparer();
-            this.Medias = new List<Media>();
+         
         }
         public void AddMedia(Media media)
         {
@@ -133,9 +134,15 @@ namespace TP3.media
         //a voir
         public void Sort(IMediaComparer comparer)
         {
+            if (comparer is null)
+            {
+                throw new ArgumentNullException("comparer can't be null");
+            }
+
+            this.Medias.Sort((lhs, rhs) => comparer.Compare(lhs, rhs));
             this.MediaComparer = comparer;
-            this.Medias.Sort((IComparer<Media>)this.MediaComparer);
         }
+      
         public void Stop()
         {
             this.Medias[this.CurrentMediaId].Stop();
@@ -144,7 +151,13 @@ namespace TP3.media
         //a voir
         public override string ToString()
         {
-            return $"Playlist: {this.Medias.Count} medias";
+          string result = "";
+            foreach(Media media in this.Medias)
+            {
+                result += $"{media}";
+            }
+            return result;
+       
         }   
     }
 }
