@@ -159,13 +159,29 @@ namespace PROF.media
         public void PlayNext() 
         {
             this.Medias[CurrentMediaId].Stop();
-            this.CurrentMediaId++;
+            if (this.CurrentMediaId == this.Medias.Count)
+            {
+                this.CurrentMediaId = 0;
+            }
+            else 
+            { 
+               this.CurrentMediaId++;
+            }
+            
             this.Medias[CurrentMediaId].Play();
         }
         public void PlayPrevious() 
         {
             this.Medias[CurrentMediaId].Stop();
-            this.CurrentMediaId --;
+            if (this.CurrentMediaId == 0) 
+            { 
+                this.CurrentMediaId = this.Medias.Count; 
+            }
+            else 
+            {
+                this.CurrentMediaId --;
+            }
+            
             this.Medias[CurrentMediaId].Play();
         }
         public void SortPlaylist(IMediaComparer comparer) 
