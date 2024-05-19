@@ -147,6 +147,7 @@ namespace TP3.media
         {
             this.Medias[this.CurrentMediaId].Stop();
         }
+     
        
         //a voir
         public override string ToString()

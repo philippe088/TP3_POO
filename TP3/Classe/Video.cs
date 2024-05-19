@@ -17,13 +17,13 @@ namespace TP3.Classe
         }
         public override void Play()
         {
-            WindowsMediaPlayer Player = new WindowsMediaPlayer();
+
+            Player.controls.stop();
             Player.URL = this.Title;
             Player.controls.play();
         }
         public override void Stop()
         {
-            WindowsMediaPlayer Player = new WindowsMediaPlayer();
             Player.URL = this.Title;
             Player.controls.stop();
         }
