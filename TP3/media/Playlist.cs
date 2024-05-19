@@ -116,17 +116,10 @@ namespace TP3.media
             {
                 throw new InvalidOperationException("the attribute must be above 0 and be below or equal to the amount of elements in the list");
             }
-            Media removedMedia = this.Medias[mediaId];
-            RemoveMedia(removedMedia);
+            int index = mediaId - 1;
+           this.Medias.RemoveAt(index);
         }
-        private void RemoveMedia(Media media)
-        {
-            if (media == null)
-            {
-                throw new ArgumentNullException("the media object must not be null");
-            }
-            this.Medias.Remove(media);
-        }
+      
         public int Size()
         {
             return this.Medias.Count;

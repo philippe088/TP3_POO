@@ -49,25 +49,25 @@ namespace TP3.media.Tests
 
             Media media1 = new Music("Title1", 2021);
             Media media2 = new Music("Title2", 2021);
-            Media media3 = new Music("Title3", 2021);
+            
             List <Media> medias = new List<Media>();
             medias.Add(media1);
             medias.Add(media2);
-            medias.Add(media3);
+           
             Playlist playlist = new Playlist();
             MediaPlayer mediaPlayer = new MediaPlayer();
             
            
 
             playlist.AddMedia(media1);
-            playlist.AddMedia(media2);
+         
 
             List<Media> unusedMedias = playlist.FilterUnusedMedias(medias);
 
             Assert.AreEqual(1, unusedMedias.Count);
-           // CollectionAssert.Contains(unusedMedias, allMedias[1]);
-          //  CollectionAssert.DoesNotContain(unusedMedias, allMedias[0]);
-           // CollectionAssert.DoesNotContain(unusedMedias, allMedias[2]);
+           CollectionAssert.Contains(unusedMedias, medias[1]);
+          CollectionAssert.DoesNotContain(unusedMedias, medias[0]);
+         
         }
 
         [TestMethod]
@@ -105,7 +105,7 @@ namespace TP3.media.Tests
             Playlist playlist = new Playlist();
             playlist.AddMedia(media);
 
-            playlist.RemoveMedia(0);
+            playlist.RemoveMedia(1);
 
             Assert.IsFalse(playlist.Medias.Contains(media));
         }
@@ -118,13 +118,6 @@ namespace TP3.media.Tests
             playlist.RemoveMedia(1);
         }
 
-         /*[TestMethod]
-         public void RemoveMedia_ThrowsArgumentNullException_WhenMediaIsNull()
-         {
-         Playlist playlist = new Playlist();     
-            Media media = null;
-        Assert.ThrowsException<ArgumentNullException>(() => playlist.RemoveMedia(media));
-         }*/
 
         [TestMethod]
         public void Size_ReturnsNumberOfMedias()
