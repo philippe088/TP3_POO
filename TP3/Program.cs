@@ -162,7 +162,61 @@ namespace PROF
                                     break;
                                 case 3:
                                     Console.WriteLine("Remove media from playlist...");
+                                    bool mediaToRemove = false;
 
+                                    while (!mediaToRemove)
+                                    {
+                                        Console.Clear();
+                                        PrintDescription();
+                                        int count = 1;
+                                        foreach (Media media in playlist.Medias)
+                                        {
+
+                                            string mediaDescription = string.Format("{0,-4}{1,-21}{2,-6}", count, media.Title, media.Year);
+                                            count++;
+                                            Console.WriteLine(mediaDescription);
+                                        }
+                                        Console.WriteLine("Press 0 to quit");
+                                        Console.WriteLine("Press a number to start choosing");
+                                        int choixRemoveMedia;
+                                        if (!int.TryParse(Console.ReadLine(), out choixRemoveMedia))
+                                        {
+                                            Console.WriteLine("Please insert a valid number.");
+                                            Console.ReadKey();
+                                            continue;
+                                        }
+                                        switch (choixRemoveMedia)
+                                        {
+                                            case 0:
+                                                Console.WriteLine("Return to Playlist menu..");
+                                                Console.ReadKey();
+                                                mediaToRemove = true;
+                                                break;
+                                            default:
+                                                Console.WriteLine("Choose a media to add to the playlist.");
+                                                int mediaId;
+                                                if (!int.TryParse(Console.ReadLine(), out mediaId))
+                                                {
+                                                    Console.WriteLine("Please insert a valid number.");
+                                                    Console.ReadKey();
+                                                    continue;
+                                                }
+                                                try
+                                                {
+                                                    playlist.RemoveMedia(mediaId);
+                                                }
+                                                catch (ArgumentOutOfRangeException)
+                                                {
+                                                    Console.WriteLine("Please insert a valid number.");
+                                                    Console.ReadKey();
+                                                    continue;
+                                                }
+
+                                                break;
+                                        }
+
+
+                                    }
                                     break;
                                 case 4:
                                     Console.WriteLine("Sort playlist by title (ascending)...");
@@ -218,7 +272,7 @@ namespace PROF
                                                 mediaPlayer.PlayPrevious();
                                                 break;
                                             case 0:
-                                                mediaPlayer.Medias[mediaPlayer.CurrentMediaId].Stop();
+                                                mediaPlayer.Stop();
                                                 backToPlaylist = true;
                                                 Console.WriteLine("return to playlist...");
                                                 break;
