@@ -115,7 +115,7 @@ namespace TP3.media.Tests
         public void RemoveMedia_ThrowsInvalidOperationException_WhenMediaIdIsInvalid()
         {
             Playlist playlist = new Playlist();
-            playlist.RemoveMedia(1);
+            playlist.RemoveMedia(0);
         }
 
 
@@ -144,6 +144,23 @@ namespace TP3.media.Tests
 
             Assert.AreEqual(media2, playlist.Medias[0]);
             Assert.AreEqual(media1, playlist.Medias[1]);
+        }
+        [TestMethod]
+        public void Sort_SortsMediasUsingComparer_Year()
+        {
+            Media media1 = new Music("Title1", 2021);
+            Media media2 = new Music("Title2", 2022);
+            Playlist playlist = new Playlist();
+           
+            playlist.AddMedia(media2);
+           
+            playlist.AddMedia(media1);
+            
+
+            playlist.Sort(new YearDescComparer());
+
+            Assert.AreEqual(media1, playlist.Medias[1]);
+            Assert.AreEqual(media2, playlist.Medias[0]);
         }
 
         [TestMethod]
